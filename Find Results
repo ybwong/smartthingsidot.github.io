@@ -1,0 +1,16 @@
+Searching 117 files for "STUDIO" (case sensitive)
+
+/Users/ybwong/if/src/site/common/page-header.html:
+    2    <div class="masthead clearfix">
+    3      <div class="inner">
+    4:       <h3 class="masthead-brand">IDoT<strong>STUDIO</strong></h3>
+    5        <nav>
+    6          <ul class="nav masthead-nav">
+    .
+   27          <span class="icon-bar"></span>
+   28        </button>
+   29:       <a class="navbar-brand" href="#">iF <strong>STUDIO</strong></a>
+   30        <form class="navbar-form navbar-left" role="search">
+   31          <div class="form-group">
+
+2 matches in 1 file

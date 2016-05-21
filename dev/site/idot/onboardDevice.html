@@ -1,0 +1,15 @@
+<div class="idot-form">
+  <form name="manageApp" ng-submit="projectModal.submitProjectUpdate()" novalidate>
+    <div class="form-group">
+      <label>Client ID</label>
+      <button class="btn btn-success pull-right" ng-click="projectModal.add()">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </button>
+      <input ng-model="projectModal.modal.org_name" type="text" class="form-control" value="{{projectModal.modal.org_name}}" ng-required="required">
+    </div>
+    <div class="form-group">
+      <label>Secret</label>
+      <input ng-model="appInputCtrl.app.app_secret" type="textarea" class="form-control" value="{{appInputCtrl.app.app_secret}}" ng-required="required">
+    </div>
+  </form>
+</div>
