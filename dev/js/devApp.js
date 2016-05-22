@@ -5,8 +5,10 @@
 		var ref = this;
 
 		ref.app_url = 'https://idot-service.appspot.com/onboard?redirect='+IdpClient.redirectUrl;
+		ref.isOperator = IdpClient.isAuthorized('OPERATION', IdpClient.idotProjectId);
 
 		IdpClient.idpInitialize(function(){
+			ref.isOperator = IdpClient.isAuthorized('OPERATION', IdpClient.idotProjectId);
 			IfProjects.loadAllProjects(function() {
 		        $log.log('all projects loaded');
 			});
@@ -18,6 +20,7 @@
 		this.doLoginToggle = function() {
 			if (IdpClient.isAuthenticated()) {
 				IdpClient.idpLogout();
+				ref.isOperator = IdpClient.isAuthorized('OPERATION', IdpClient.idotProjectId);
 				$state.transitionTo('GoHome');
 			} else {
 				$log.log("current state is", $state.current.name);
