@@ -6,14 +6,14 @@
     .controller('ManageDeviceModalCtrl', ManageDeviceModalCtrl);
 
   /* @ngInject */
-  function ManageDeviceModalCtrl($log, $state, $stateParams, IdotManageService) {
+  function ManageDeviceModalCtrl($log, $state, $stateParams, IdotManageService, IdpClient) {
     var vm = this;
 
     vm.cmd_name = 'switch';
     vm.cmd_value = true;
     vm.cmd_type = 'BOOLEAN';
 
-    vm.isDisabled = false;
+    vm.isDisabled = !IdpClient.isAuthorized('PATIENT', IdpClient.idotProjectId);
 
     vm.close = close;
     vm.done = done;

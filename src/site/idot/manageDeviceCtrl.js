@@ -6,7 +6,7 @@
     .controller('ManageDeviceCtrl', ManageDeviceCtrl);
 
   /* @ngInject */
-  function ManageDeviceCtrl($log, $q, $state, IdotManageService) {
+  function ManageDeviceCtrl($log, $q, $state, IdpClient, IdotManageService) {
     var vm = this;
 
     vm.devList = [];
@@ -18,6 +18,7 @@
 
     vm.getDevices = getDevices;
     vm.launchModal = launchModal;
+    vm.isPatient = IdpClient.isAuthorized('PATIENT', IdpClient.idotProjectId);
 
     //////////
 
