@@ -4,6 +4,8 @@
 	app.controller('DevPortalController', function(IfProjects, IdpClient, $log, $state){
 		var ref = this;
 
+		ref.app_url = 'https://idot-service.appspot.com/onboard?redirect='+IdpClient.redirectUrl;
+
 		IdpClient.idpInitialize(function(){
 			IfProjects.loadAllProjects(function() {
 		        $log.log('all projects loaded');

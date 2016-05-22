@@ -13,6 +13,7 @@
     vm.clientSecret = '';
 
     vm.addDevice = addDevice;
+    vm.app_url = 'https://idot-service.appspot.com/onboard?redirect='+IdpClient.redirectUrl;
 
     //////////
 

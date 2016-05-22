@@ -1,6 +1,7 @@
 <div class="idot-form">
   <form name="manageApp" ng-submit="onboardDeviceCtrl.submitProjectUpdate()" novalidate>
-    <div class="form-group">
+    <a href="{{onboardDeviceCtrl.app_url}}"> Click here to onboard a devce </a>
+    <!-- <div class="form-group">
       <label>Web Service Client ID</label>
       <input ng-model="onboardDeviceCtrl.clientId" type="text" class="form-control" value="{{onboardDeviceCtrl.clientId}}" ng-required="required">
     </div>
@@ -10,6 +11,6 @@
     </div>
     <button class="btn btn-success pull-right" ng-click="onboardDeviceCtrl.addDevice()">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    </button>
+    </button> -->
   </form>
 </div>
