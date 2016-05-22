@@ -10,7 +10,8 @@
 
     return {
       getDevices: getDevices,
-      getDeviceStatus: getDeviceStatus
+      getDeviceStatus: getDeviceStatus,
+      saveDeviceStatus: saveDeviceStatus
     };
 
     function getDevices() {
@@ -19,6 +20,10 @@
 
     function getDeviceStatus(deviceID) {
       return IdotService.get({ devId: deviceID, status: 'status' }).$promise;
+    }
+
+    function saveDeviceStatus(deviceID, data) {
+      return IdotService.update({ devId: deviceID, status: 'status' }, data).$promise;
     }
 
     function addDevice(authCode, clientId, clientSecret, redirectUrl) {

@@ -6,7 +6,7 @@
     .controller('ManageDeviceModalCtrl', ManageDeviceModalCtrl);
 
   /* @ngInject */
-  function ManageDeviceModalCtrl($state, $stateParams, IdotManageService) {
+  function ManageDeviceModalCtrl($log, $state, $stateParams, IdotManageService) {
     var vm = this;
 
     vm.cmd_name = 'switch';
@@ -25,9 +25,17 @@
       $state.go('ManageDev');
     }
 
-
-
     function done() {
+      var data = {
+        cmd_name: vm.cmd_name,
+        cmd_type: vm.cmd_type,
+        cmd_value: vm.cmd_value,
+        min_range: vm.min_range,
+        max_range: vm.max_range
+      };
+      IdotManageService.saveDeviceStatus(vm.deviceID, data).then(function() {}, function(error) {
+        $log.log('failed to save device status', error)
+      });
 
     }
 
@@ -41,7 +49,7 @@
         vm.min_range = data.min_range;
         vm.max_range = data.max_range;
       });
- 
+
 
       $('#ManageDeviceModal').modal();
       $('#ManageDeviceModal').on('hidden.bs.modal', function(e) {
