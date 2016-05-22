@@ -37,6 +37,9 @@
 		this.isGuest = function() {
 			return !this.isAuthorized('USER', IdpClient.idotProjectId);
 		};
+		this.isViewer = function() {
+			return this.isAuthorized('VIEWER', IdpClient.idotProjectId);
+		};
 		this.isAuthorized = function(role) {
 			return IdpClient.isAuthorized(role, IdpClient.idotProjectId);
 		};

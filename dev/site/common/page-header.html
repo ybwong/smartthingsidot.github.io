@@ -9,7 +9,7 @@
           <!-- <li ui-sref-active="active"><a ui-sref="Issues">Issues</a></li> -->
           <!-- <li ng-hide="portalCtrl.isGuest()" ui-sref-active="active"><a ui-sref="Projects">Projects</a></li> -->
           <li ng-show="portalCtrl.isOperator" ui-sref-active="active"><a href="{{portalCtrl.app_url}}">Onboard Device</a></li>
-          <li ng-show="portalCtrl.isGuest()" ui-sref-active="active"><a ui-sref="ManageDev">Manage Device</a></li>
+          <li ng-show="portalCtrl.isViewer()" ui-sref-active="active"><a ui-sref="ManageDev">Manage Device</a></li>
           <li>
             <button class="btn btn-warning" ng-click="portalCtrl.doLoginToggle()">{{portalCtrl.getLoginToggle()}}</button>
           </li>
