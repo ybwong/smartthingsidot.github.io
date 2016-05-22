@@ -3,7 +3,7 @@
 
   // .module('devPortal', ["ui.router"])
   angular
-    .module('Core', ['ui.router', 'ngResource', 'ngPromiseExtras'])
+    .module('Core', ['ui.router', 'ngResource', 'ngPromiseExtras', 'angular-storage'])
     // .factory('HttpHeaderInterceptor', ['$window', function($window) {
     //   return {
     //     request: function(config) {
@@ -37,7 +37,7 @@
       $stateProvider.state("Home", {
           template: '<ui-view/>',
           controller: function($state, IdpClient) {
-            if (IdpClient.isAuthorized('USER', 'devnet-alpha.integratingfactor.com')) {
+            if (IdpClient.isAuthorized('USER', IdpClient.idotProjectId)) {
               $state.transitionTo('Home.User');
             } else {
               $state.transitionTo('Home.Guest');

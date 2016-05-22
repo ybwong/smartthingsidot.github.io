@@ -4,25 +4,25 @@
   // left: 0;
   // right: 0;
   // bottom: 0;
-  width: 80%;
+  width: 40%;
   margin: auto;
   font-size: 14px;
   font-weight: bold;
-  color: #fff;
+  // color: #fff;
   /* IE8 proofing */
   color: rgba(255, 255, 255, .75);
-  .content {
-    position: absolute;
-    z-index: 100;
-    top: 0;
-    right: -80%;
-    width: 80%;
-    height: 100%;
-    overflow: auto;
-    background: #fff;
-    padding: 20px;
-    border-left: 1px solid #e0e0e0;
-  }
+  // .content {
+  //   position: absolute;
+  //   z-index: 100;
+  //   top: 0;
+  //   right: -80%;
+  //   width: 50%;
+  //   height: 100%;
+  //   overflow: auto;
+  //   background: #fff;
+  //   padding: 20px;
+  //   border-left: 1px solid #e0e0e0;
+  // }
   // .background {
   //   background: #000;
   //   opacity: 0;

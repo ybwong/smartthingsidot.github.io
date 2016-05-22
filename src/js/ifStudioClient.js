@@ -1,7 +1,10 @@
 (function(){
     var app = angular.module('if-studio-client', []);
     app.factory('IfStudioClient', function(IdpClient, $log, $http, $httpParamSerializerJQLike){
-        var apiBase='https://dev-portal-service.appspot.com/api/v1/';
+        var apiBaseDevPortal ='https://dev-portal-service.appspot.com/api/v1/';
+        var apiBaseSmartThings ='https://idot-service.appspot.com/api/v1/';        
+        
+        var apiBase = apiBaseSmartThings;
         // function httpGet(url, onSuccess, onError) {
         //       // $log.log("using access token:" + IdpClient.getToken());
         //       $http({
@@ -75,6 +78,7 @@
         };
         return {
             apiBase: apiBase,
+            apiBaseSmartThings, apiBaseSmartThings,
 
             registerDeveloper: function(onSuccess, onError) {
                 $log.log("registering developer");

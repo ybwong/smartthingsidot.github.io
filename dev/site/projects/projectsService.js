@@ -159,7 +159,7 @@
     function loadAllProjects() {
       var deferred = $q.defer();
 
-      if (!IdpClient.isAuthorized('USER', 'devnet-alpha.integratingfactor.com')) {
+      if (!IdpClient.isAuthorized('USER', IdpClient.idotProjectId)) {
         return;
       }
       IfStudioClient.getAllProjects(function(data) {

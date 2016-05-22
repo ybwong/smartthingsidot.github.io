@@ -1,9 +1,24 @@
 (function(){
-	var app = angular.module('idp-oauth-client', []);
-	app.factory('IdpClient', function($log, $window, $http, $httpParamSerializerJQLike){
-		var clientId='b80a9eb3-8b8e-46ef-ad61-77309f9bedb4';		
-		var idpHost='https://if-idp.appspot.com';		
-		var clientSecret='';
+	var app = angular.module('idp-oauth-client', ['angular-storage']);
+	app.factory('IdpClient', function($log, $window, $http, $httpParamSerializerJQLike, store){
+		var authCodePromise = undefined;
+
+		var smartThingsHost = 'https://graph.api.smartthings.com';
+		var clientIdSmartThings = 'ec909493-9dbc-465d-8681-01b559022b75';
+		var secretSmartThings = 'a7a5775e-7c5d-4b57-85d9-30636987cf0f';
+		var idpHost='https://if-idp.appspot.com';	
+
+		var devPortalProjectId = 'devnet-alpha.integratingfactor.com';
+		var devPortalClientId = 'b80a9eb3-8b8e-46ef-ad61-77309f9bedb4';
+		var devPortalClientSecret = '';
+
+		var idotProjectId = 'e2ecd93f-aada-4009-8be1-4fa072c97749';
+		var idotClientId = '7204ae71-c0aa-446a-ae12-460afba58bf4';
+		var idotClientSecret = 'secret';
+
+		var clientId = idotClientId;
+		var clientSecret = idotClientSecret;
+
 		var clientAuth=btoa(clientId+':'+clientSecret);
 		var errorPage;
 		var redirectUrl=$window.location.protocol + '//' + $window.location.host;
@@ -30,6 +45,21 @@
 		function requestAccessToken(clientId,type){
 			$log.log("requesting access token");
 			$window.location=idpHost+'/oauth/authorize?client_id='+clientId+'&response_type='+type+'&redirect_uri='+redirectUrl;
+		}
+
+
+		//
+		// SmartThings authorize uri for getting auth code:
+		//
+        // GET https://graph.api.smartthings.com/oauth/authorize?
+        // response_type=code&
+        // client_id=YOUR-SMARTAPP-CLIENT-ID&
+        // scope=app&
+        // redirect_uri=YOUR-SERVER-URI
+        //
+		function requestAccessTokenSmartThings(smartHost,clientId,type,scope,redirect_uri){
+			$log.log("requesting access token from SmartThings");
+			$window.location=smartHost+'/oauth/authorize?client_id='+clientId+'&response_type='+type+'&scope='+scope+'&redirect_uri='+redirect_uri;
 		}
 
 		function validateToken(accessToken, returnTo) {
@@ -68,9 +98,59 @@
 			}
 		}
 
+        //
+        // POST https://graph.api.smartthings.com/oauth/token HTTP/1.1
+        // Host: graph.api.smartthings.com
+        // Content-Type: application/x-www-form-urlencoded
+        // grant_type=authorization_code&code=YOUR_CODE&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&redirect_uri=YOUR_REDIRECT_URI
+        //
+		// function getAccessToken(authCode) {
+		// 	$http({
+		// 	    url:smartThingsHost+'/oauth/token',
+		// 	    method: "POST",
+		// 	    headers: {
+		// 	      'Content-Type': 'application/x-www-form-urlencoded'
+		// 	    },
+		// 	    data: $httpParamSerializerJQLike({
+		// 	      grant_type: 'authorization_code',
+		// 	      code: authCode,
+		// 	      client_id: clientIdSmartThings,
+		// 	      client_secret: secretSmartThings,
+		// 	      redirect_uri: redirectUrl
+		// 	    })
+		// 	  })
+		// 	  .success(function (data) {
+		// 	    $log.log("validated token successfully");
+		// 	    userInfo=data;
+		// 	  })
+		// 	  .error(function (req, status, error) {
+		// 	    $log.log("Failed to validate token: ", status, error);
+		// 	    userInfo=null;
+		// 	    token=null;
+		// 		if (isSessionStorageSupported) {
+		// 			$window.sessionStorage.userInfo = JSON.stringify(userInfo);
+		// 			$window.sessionStorage.token = JSON.stringify(token);
+		// 		}
+		// 	  });
+		// }
+
 		function checkTokenGrant(returnTo) {
 			$log.log("checking access token in location hash");
 			// First, parse the query string
+
+			// if ($window.location.hash === "") {
+			// 	if ($window.location.href.length > 0) {
+   //       			var deviceData = store.get('deviceData')
+   //       			if (deviceData) {
+   // 					  var i = $window.location.href.indexOf("code=");
+			// 		  var authCode = $window.location.href.substring(i+5);
+			// 		  deviceData.authCodePromise.resolve(authCode);
+			// 		  store.remove('deviceData');
+			// 		  store.set('deviceData',deviceData);
+			// 		}
+			// 	}
+			// }
+
 			var params = {}, queryString = $window.location.hash.substring(1),
 			    regex = /([^&=]+)=([^&]*)/g, m;
 			while (m = regex.exec(queryString)) {
@@ -90,6 +170,9 @@
 
 
 		return {
+			devPortalProjectId: devPortalProjectId,
+			idotProjectId: idotProjectId,
+			redirectUrl: redirectUrl,
 			// call this method at the startup/page load to initialize
 			idpInitialize: function(returnTo) {
 				$log.log('idp library initializing');
@@ -135,6 +218,21 @@
 					$window.sessionStorage.userInfo = JSON.stringify(userInfo);
 				}
 			    token=null;
+			},
+			smartThingsLogin: function(clientId, onSuccess) {
+              $log.log('smartThings login called');
+		      //
+	          // SmartThings authorize uri for getting auth code:
+              //
+              // GET https://graph.api.smartthings.com/oauth/authorize?
+              // response_type=code&
+              // client_id=YOUR-SMARTAPP-CLIENT-ID&
+              // scope=app&
+              // redirect_uri=YOUR-SERVER-URI
+              //
+              var type = 'code';
+              var scope = 'app';
+			  requestAccessTokenSmartThings(smartThingsHost,clientId,type,scope,redirectUrl);
 			},
 			// check if user is authenticated and token is not expired
 			isAuthenticated: function () {

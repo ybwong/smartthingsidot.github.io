@@ -30,10 +30,10 @@
 			return false;
 		};
 		this.isGuest = function() {
-			return !this.isAuthorized('USER', 'devnet-alpha.integratingfactor.com');
+			return !this.isAuthorized('USER', IdpClient.idotProjectId);
 		};
 		this.isAuthorized = function(role) {
-			return IdpClient.isAuthorized(role, 'devnet-alpha.integratingfactor.com');
+			return IdpClient.isAuthorized(role, IdpClient.idotProjectId);
 		};
 		this.getAccessToken = function() {
 			if (ref.isAuthorized()) {

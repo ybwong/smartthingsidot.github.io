@@ -9,7 +9,7 @@
         		return ref.myProjects;
         	},
             loadAllProjects : function(callback) {
-                if(!IdpClient.isAuthorized('USER', 'devnet-alpha.integratingfactor.com')) {
+                if(!IdpClient.isAuthorized('USER', IdpClient.idotProjectId)) {
                     return;
                 };
                 IfStudioClient.getAllProjects(function(data){
@@ -126,7 +126,7 @@
 		        };
 
 		        this.loadAllProjects = function() {
-		        	if(!IdpClient.isAuthorized('USER', 'devnet-alpha.integratingfactor.com')) {
+		        	if(!IdpClient.isAuthorized('USER', IdpClient.idotProjectId)) {
 		        		return;
 		        	};
 		        	IfProjects.loadAllProjects(function() {
