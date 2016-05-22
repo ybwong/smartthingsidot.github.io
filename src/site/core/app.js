@@ -3,7 +3,7 @@
 
   // .module('devPortal', ["ui.router"])
   angular
-    .module('Core', ['ui.router', 'ngResource', 'ngPromiseExtras', 'angular-storage'])
+    .module('Core', ['ui.router', 'ngResource', 'ngPromiseExtras', 'angular-storage', 'ngMaterial'])
     // .factory('HttpHeaderInterceptor', ['$window', function($window) {
     //   return {
     //     request: function(config) {
@@ -145,6 +145,23 @@
           templateUrl: '/site/idot/onboardDevice.html',
           controller: 'OnboardDeviceCtrl',
           controllerAs: 'onboardDeviceCtrl'
+        })
+        .state("ManageDev", {
+          templateUrl: '/site/idot/manageDevice.html',
+          controller: 'ManageDeviceCtrl',
+          controllerAs: 'manageDeviceCtrl'
+        })
+        .state("ManageDev.View", {
+          params: {
+            deviceID: null,
+          },
+          views: {
+            "modal": {
+              templateUrl: '/site/idot/manageDeviceModal.html',
+              controller: 'ManageDeviceModalCtrl',
+              controllerAs: 'manageDeviceModalCtrl'
+            }
+          }
         });
 
       $urlRouterProvider.otherwise('/');
